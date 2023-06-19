@@ -18,6 +18,10 @@ const dregister = new mongoose.Schema({
        type: String,
        required: true
     },
+    specialisation : {
+        type: String,
+        required: true
+     },
     password: {
         type: String,
         required: true

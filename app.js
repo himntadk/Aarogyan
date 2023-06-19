@@ -12,8 +12,9 @@ require('./DB/connectmedico');
 const Medicomodel = require('./mongo/registration')
 const Profilemodel = require('./mongo/makeprofile')
 const Prescriptionmodel = require('./mongo/issueprescription')
-const Doctorreg = require('./mongo/d_registration')
-const port= process.env.PORT || 5000;
+const Doctorreg = require('./mongo/d_registration');
+const async = require('hbs/lib/async');
+const port= process.env.PORT || 4000;
 
 app.use(express.static('public'));
 app.use(morgan('dev'));
@@ -50,21 +51,37 @@ app.get('/doctor/register',(req,res)=>{
 app.get('/doctor/logindoctor',(req,res)=>{
     res.render('Doctor/logindoctor');
 })
-let d_email = "";
+let demail = "";
+let dname = "";
 app.get('/doctor/home',async (req,res)=>{
     const {email} = req.query;
     console.log(email)
     const checkname = await Doctorreg.findOne({email : email})
     console.log(checkname)
-    d_email = checkname.email;
-    console.log(d_email)
+    demail = checkname.email;
+    dname = checkname.username;
+    //console.log(d_email)
+    //console.log(d_name)
     if(checkname){
         return res.render('Doctor/doctor',{checkname});
     }
     res.render('Doctor/doctor');
 });
+// app.get('/doctor/history',async (req,res)=>{
+//     console.log(dname);
+//    // const name = d_name;
+//    // console.log(name);
+//    const checkhistory = await Prescriptionmodel.find({doctor : d_name});
+//    console.log(checkhistory);
+//    if(checkhistory){
+//        return res.render('Doctor/checkhistory',{checkhistory});
+//    }
+//    else{
+//        return res.render('404')
+//    }
+// })
 app.get('/doctor/pescription',async (req,res)=>{
-    const email = d_email;
+    const email = demail;
     console.log(email)
     const checkmail = await Doctorreg.findOne({email : email})
     console.log(checkmail)
@@ -128,6 +145,27 @@ app.get('/list',(req,res)=>{
         }
     })
 })
+
+
+
+//Doctor History
+app.get('/doctor/history',async(req,res)=>{
+    const name_ = dname;
+    console.log(name_);
+    const checkdoctor = await Prescriptionmodel.find({doctor: name_});
+    console.log(checkdoctor);
+    if(checkdoctor){
+         return res.render('Doctor/history',{checkdoctor});
+    }
+    else{
+        res.render('Doctor/history');
+    }
+})
+
+
+
+
+//end of doctor history
 app.post('/register',async (req,res)=>{
     try{
         const pass = req.body.password
@@ -162,6 +200,7 @@ app.post('/doctor/register', async(req,res)=>{
           email : req.body.email,
           phone : req.body.phone,
           mlicence : req.body.mlicence,
+          specialisation : req.body.specialisation,
           password: req.body.password
       })
       const result = await docreg.save()
@@ -175,6 +214,7 @@ app.post('/doctor/register', async(req,res)=>{
      res.status(201).render("404")
     }
 })
+
 app.post('/doctor/logindoctor', async (req,res)=>{
     try{
      const email = req.body.email
@@ -271,7 +311,6 @@ app.post('/doctor/pescription', async (req,res)=>{
       res.status(201).render("404")
     }
 })
-
 app.listen(port, ()=>{
     console.log('listening on port');
 })

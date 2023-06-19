@@ -1,46 +1,169 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
-        <link rel="stylesheet" href="../CSS/bemar.css" />
-        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-       <style>
-         h5{
-           margin-top: -10px;
-         }
-       </style>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <link rel="stylesheet" href="../CSS/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Karla:400,700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     </head>
-    <body>
-        <div class="signupSection">
-  <div class="info">
-    <div style="margin-top: 10%; font-size:1.3rem; font-weight bold;">Available Doctors</div><br/>
-     {{#each bemar}}
-     <div>
-         <h3><i class="icon-user-md"></i> <span style="color: black;">{{this.username}}</span></h3>
-         <h5><i class="icon-envelope"></i> <span style="color: black;">{{this.email}}</span></h5>
-         <h5 class="last"><i class="icon-phone"></i> <span style="color: black;">{{this.phone}}</span></h5>
-     </div>
-     {{/each}}
-  </div>
-  <form class="signupForm" name="signupform">
-    <h2>No pescription Available</h2>
-    <h4>Always see a doctor at the earliest</h4>
-    <h4>when you don't feel well</h4>
-    <ul class="noBullet">
-      <li id="center-btn">
-        {{!-- <input type="submit" id="join-btn" name="join" alt="Join" value="Add"> --}}
-        {{!-- <button id="join-btn" name="join" onclick="view()">Check Doctor</button> --}}
-        We have our best doctors for you!
-      </li>
-    </ul>
-  </form>
-</div>
-<script>
-   //function view(){
-     //console.log("seen!")
-     //document.querySelector(".info").style.display = "block";
-  // }
+<style>
+        body{margin-top:20px;
+    background-color: #e4e6e9;
+    color: #41464d;
+}
 
-</script>
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+.btn-a-brc-tp:not(.disabled):not(:disabled).active, .btn-brc-tp, .btn-brc-tp:focus:not(:hover):not(:active):not(.active):not(.dropdown-toggle), .btn-h-brc-tp:hover, .btn.btn-f-brc-tp:focus, .btn.btn-h-brc-tp:hover {
+    border-color: transparent;
+}
+.btn-outline-blue {
+    color: #0d6ce1;
+    border-color: #5a9beb;
+    background-color: transparent;
+}
+.btn {
+    cursor: pointer;
+    position: relative;
+    z-index: auto;
+    border-radius: .175rem;
+    transition: color .15s,background-color .15s,border-color .15s,box-shadow .15s,opacity .15s;
+}
+.border-2 {
+    border-width: 2px!important;
+    border-style: solid!important;
+    border-color: transparent;
+}
+.bgc-white {
+    background-color: rgb(234, 215, 215)!important;
+}
+
+
+.text-green-d1 {
+    color: #14b17a!important;
+}
+.letter-spacing {
+    letter-spacing: .5px!important;
+}
+.font-bolder, .text-600 {
+    font-weight: 600!important;
+}
+.text-170 {
+    font-size: 1.7em!important;
+}
+
+.text-purple-d1 {
+    color: #6d62b5!important;
+}
+
+.text-primary-d1 {
+    color: #276ab4!important;
+}
+.text-secondary-d1 {
+    color: #5f718b!important;
+}
+.text-180 {
+    font-size: 1.8em!important;
+}
+.text-150 {
+    font-size: 1.5em!important;
+}
+.text-danger-m3 {
+    color: #e05858!important;
+}
+.rotate-45 {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.position-l {
+    left: 0;
+}
+.position-b, .position-bc, .position-bl, .position-br, .position-center, .position-l, .position-lc, .position-r, .position-rc, .position-t, .position-tc, .position-tl, .position-tr {
+    position: absolute!important;
+    display: block;
+}
+.mt-n475, .my-n475 {
+    margin-top: -2.5rem!important;
+}
+.ml-35, .mx-35 {
+    margin-left: 1.25rem!important;
+}
+
+.text-dark-l1 {
+    color: #56585e!important;
+}
+.text-90 {
+    font-size: .9em!important;
+}
+.text-left {
+    text-align: left!important;
+}
+
+.mt-25, .my-25 {
+    margin-top: .75rem!important;
+}
+
+.text-110 {
+    font-size: 1.1em!important;
+}
+
+.deleted-text{
+text-decoration:line-through;;    
+}
+    </style>
+    <body>
+<div class="container">
+<div class="mt-5">
+    {{#each bemar}}
+      <div class="d-style btn btn-brc-tp border-2 bgc-white btn-outline-blue btn-h-outline-blue btn-a-outline-blue w-100 my-2 py-3 shadow-sm">
+        <!-- Basic Plan -->
+        <div class="row align-items-center">
+          <div class="col-12 col-md-4">
+            <h4 class="pt-3 text-170 text-600 text-primary-d1 letter-spacing">
+              Dr. {{this.username}}
+            </h4>
+
+            <div class="text-secondary-d1 text-120">
+              <span class="ml-n15 align-text-bottom"></span><span class="text-180"></span> 
+              <div>{{this.email}}</div>
+              <div>Contact : {{this.phone}}</div>
+            </div>
+          </div>
+{{!-- 
+          <ul class="list-unstyled mb-0 col-12 col-md-4 text-dark-l1 text-90 text-left my-4 my-md-0">
+            {{#each this.medicine}}
+            <li>
+              <i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
+              <span>
+                <span class="text-110">Medicine: </span>
+              {{this.m_name}}
+              </span>
+            </li>
+            {{/each}}
+          </ul> --}}
+
+          <div class="col-12 col-md-4 text-center">
+            <a href="#" class="f-n-hover btn btn-info btn-raised px-4 py-25 w-75 text-600">{{this.specialisation}}</a>
+          </div>
+        </div>
+
+      </div>
+    {{/each}}
+ </div>
+</div>
+        {{!-- <div>
+            <h1>Welcome to history</h1>
+            {{#each checkdoctor}}
+                  
+            {{/each}}
+        </div> --}}
     </body>
 </html>
+
+  
