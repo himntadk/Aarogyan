@@ -21,5 +21,14 @@
     "nodemon": "^2.0.22",
     "path": "^0.12.7",
     "validation-error": "^1.0.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/himntadk/Aarogyan.git"
+  },
+  "bugs": {
+    "url": "https://github.com/himntadk/Aarogyan/issues"
+  },
+  "homepage": "https://github.com/himntadk/Aarogyan#readme"
 }
